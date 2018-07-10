@@ -1,0 +1,29 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Visualização de produto - CRUD Symfony 4
+{% endblock %}
+
+{% block body %}
+    <h1>Visualização de Produto - <small>{{ produto.nome }}</small></h1>
+    <hr>
+   <table class="table table-striped">
+
+       <tbody>
+       <tr>
+           <th>Cod.</th>
+           <td>{{ produto.id }}</td>
+       </tr>
+       <tr>
+            <th>Nome</th>
+            <td>{{ produto.nome }}</td>
+        </tr>
+            <th>Preço</th>
+            <td>{{ produto.preco }}</td>
+       </tr>
+       <tr>
+           <th>Descrição</th>
+           <td>{{ produto.descricao }}</td>
+       </tr>
+    </table>
+{% endblock %}
