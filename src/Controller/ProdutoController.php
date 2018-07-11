@@ -103,4 +103,32 @@ class ProdutoController extends Controller
             'produto' => $produto
         ]);
     }
+
+    /**
+     * @param Request $request
+     * @param $id
+     *
+     * @Route ("produto/apagar/{id}", name="apagar_produto")
+     * @return Response
+     */
+
+    public function delete(Request $request, $id){
+
+        $em = $this->getDoctrine()->getManager();
+        $produto = $em->getRepository(Produto::class)->find($id);
+
+        if(!$produto){
+            $mensagem = "Produto não foi encontrado!";
+            $tipo = "warning";
+        }else{
+            $em->remove($produto);
+            $em->flush();
+            $mensagem = "Produto foi excluido com sucesso!";
+            $tipo = "success";
+        }
+
+        $this->get('session')->getFlashBag()->set($tipo, $mensagem);
+
+        return $this->redirectToRoute("listar_produto");
+    }
 }

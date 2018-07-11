@@ -12,6 +12,13 @@
             {{ flashMessage }}
         </div>
     {% endfor %}
+
+    {% for flashMessage in app.session.flashbag.get('warning') %}
+        <div class="alert alert-warning">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+
     <h1>Listando produtos </h1>
     <hr>
     <div class="row">
@@ -39,10 +46,24 @@
                 <td>
                     <a class="btn btn-sm btn-warning" href="{{ path('visualizar_produto', {"id": produto.id }) }}"><i class="fa fa-eye"></i></a>
                     <a class="btn btn-sm btn-success" href="{{ path('editar_produto', {"id": produto.id }) }}"><i class="fa fa-pencil"></i></a>
-                    <a class="btn btn-sm btn-danger" href=""><i class="fa fa-trash"></i></a>
+                    <a class="btn btn-sm btn-danger bt_excluir_produto" href="{{ path('apagar_produto', {"id": produto.id }) }}"><i class="fa fa-trash"></i></a>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $(".bt_excluir_produto").click(function(ev) {
+               ev.preventDefault();
+                var url = $(this).prop("href");
+                if(confirm("Deseja excluir esse produto?")) {
+                    window.location = url;
+                }
+            });
+        })
+    </script>
 {% endblock %}
